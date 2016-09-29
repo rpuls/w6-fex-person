@@ -6,22 +6,45 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script>
             $(document).ready(function () {
-                $.ajax({
-                    url: "api/person",
-                    type: "json",
-                    method : "GET"
-                }).done(function (data) {
-                    var items = "";
-                    data.forEach(function (person) {
-                        items += "<li>"+person.firstName + " " + person.lastName + "</li>";
+                $("#personBtn").on("click", function () {
+                    $("#quotes").hide();
+                    $("#persons").show();
+                    $.ajax({
+                        url: "api/person",
+                        type: "json",
+                        method: "GET"
+                    }).done(function (data) {
+                        var items = "";
+                        data.forEach(function (person) {
+                            items += "<li>" + person.firstName + " " + person.lastName + "</li>";
+                        });
+                        $("#persons").append(items);
                     });
-                    $("#persons").append(items);
+                });
+
+                $("#quoteBtn").on("click", function () {
+                    $("#persons").hide();
+                    $("#quotes").show();
+                    $.ajax({
+                        url: "api/quote",
+                        type: "json",
+                        method: "GET"
+                    }).done(function (data) {
+                        var items = "<li>" + data + "</li>";
+                        $("#quotes").append(items);
+                    });
                 });
             });
+
+
+
         </script>
     </head>
     <body>
-        <h1>Person</h1>
+        <h1>Person REST + jpa Exersice</h1>
+        <button id="personBtn">Get Persons </button>
+        <button id="quoteBtn">Get Quotes </button>
         <ul id="persons"></ul>
+        <ul id="quotes"></ul>
     </body>
 </html>
