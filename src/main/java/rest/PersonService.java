@@ -55,6 +55,15 @@ public class PersonService {
         List<Person> persons = facade.getPersons();
         return gson.toJson(persons);
     }
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String addPerson(String content) {
+        Person p = gson.fromJson(content, Person.class);
+        Person newPerson = facade.addPerson(p);
+        return gson.toJson(newPerson);
+    }
 //
 //    @GET
 //    @Path("{id}")
@@ -76,8 +85,8 @@ public class PersonService {
      *
      * @param content representation for the resource
      */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putJson(String content) {
-    }
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public void putJson(String content) {
+//    }
 }
